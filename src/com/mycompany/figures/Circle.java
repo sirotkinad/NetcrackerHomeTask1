@@ -1,5 +1,8 @@
 package com.mycompany.figures;
 
+import java.util.Objects;
+
+
 public class Circle {
 
     private double radius = 1.0;
@@ -50,5 +53,23 @@ public class Circle {
 
     public double getArea(){
         return Math.PI * getRadius() * getRadius();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Circle circle = (Circle) o;
+        return Double.compare(circle.radius, radius) == 0 &&
+                color.equalsIgnoreCase(circle.color);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = 17;
+        long val = Double.doubleToLongBits(radius);
+        result = 31 * result + (int) (val ^ (val >>> 32));;
+        result = 31 * result + color.hashCode();
+        return result;
     }
 }

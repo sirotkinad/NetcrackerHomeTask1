@@ -1,5 +1,7 @@
 package com.mycompany.figures;
 
+import java.util.Objects;
+
 public class MyPoint {
 
     private double x = 0;
@@ -55,5 +57,24 @@ public class MyPoint {
 
     public double distance(){
         return Math.sqrt(x * x + y * y);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        MyPoint myPoint = (MyPoint) o;
+        return Double.compare(myPoint.x, x) == 0 &&
+                Double.compare(myPoint.y, y) == 0;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = 17;
+        long val1 = Double.doubleToLongBits(x);
+        long val2 = Double.doubleToLongBits(y);
+        result = 31 * result + (int) (val1 ^ (val1 >>> 32));
+        result = 31 * result + (int) (val2 ^ (val2 >>> 32));
+        return result;
     }
 }

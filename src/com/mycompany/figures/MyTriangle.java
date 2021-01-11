@@ -1,5 +1,7 @@
 package com.mycompany.figures;
 
+import java.util.Objects;
+
 public class MyTriangle {
 
     private MyPoint v1;
@@ -63,4 +65,23 @@ public class MyTriangle {
             else
                 return TriangleType.Scalene;
         }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        MyTriangle that = (MyTriangle) o;
+        return v1.equals(that.v1) &&
+                v2.equals(that.v2) &&
+                v3.equals(that.v3);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = 17;
+        result = 31 * result + v1.hashCode();
+        result = 31 * result + v2.hashCode();
+        result = 31 * result + v3.hashCode();
+        return result;
+    }
 }

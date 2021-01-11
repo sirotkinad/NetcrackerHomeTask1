@@ -1,5 +1,7 @@
 package com.mycompany;
 
+import java.util.Objects;
+
 public class MyComplex {
 
     private double real = 0.0;
@@ -112,4 +114,22 @@ public class MyComplex {
         return this;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        MyComplex myComplex = (MyComplex) o;
+        return Double.compare(myComplex.real, real) == 0 &&
+                Double.compare(myComplex.imag, imag) == 0;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = 17;
+        long val1 = Double.doubleToLongBits(real);
+        long val2 = Double.doubleToLongBits(imag);
+        result = 31 * result + (int) (val1 ^ (val1 >>> 32));
+        result = 31 * result + (int) (val2 ^ (val2 >>> 32));
+        return result;
+    }
 }

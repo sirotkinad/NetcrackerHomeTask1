@@ -1,6 +1,7 @@
 package com.mycompany.library;
 
 import java.util.Arrays;
+import java.util.Objects;
 
 public class Book {
 
@@ -66,5 +67,27 @@ public class Book {
         for(int i = 1; i < authors.length; i++)
                 authorsNames += ", " + authors[i].getName();
         return authorsNames;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Book book = (Book) o;
+        return Double.compare(book.price, price) == 0 &&
+                qty == book.qty &&
+                name.equalsIgnoreCase(book.name) &&
+                Arrays.equals(authors, book.authors);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = 17;
+        long val = Double.doubleToLongBits(price);
+        result = 31 * result + qty;
+        result = 31 * result + (int) (val ^ (val >>> 32));
+        result = 31 * result + name.hashCode();
+        result = 31 * result + Arrays.hashCode(authors);
+        return result;
     }
 }
